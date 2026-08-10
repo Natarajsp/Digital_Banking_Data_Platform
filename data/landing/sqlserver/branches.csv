@@ -1,0 +1,153 @@
+branch_id,branch_name,city,state,country,ifsc_code,manager_name,opened_date
+BR001,Belagavi Main Branch,Belagavi,Karnataka,India,NOVA0000001,Suman Naidu,2023-11-07
+BR002,Bhubaneswar City Centre Branch,Bhubaneswar,Odisha,India,NOVA0000002,Deepak Krishnan,2022-10-27
+BR003,Bhopal Market Road Branch,Bhopal,Madhya Pradesh,India,NOVA0000003,Preeti Sharma,2010-06-23
+BR004,Vadodara Station Road Branch,Vadodara,Gujarat,India,NOVA0000004,Manoj Venkatesh,1996-09-20
+BR005,Vadodara MG Road Branch,Vadodara,Gujarat,India,NOVA0000005,Chetan Shetty,2013-04-24
+BR006,Dehradun Civil Lines Branch,Dehradun,Uttarakhand,India,NOVA0000006,Swati Singh,2012-02-07
+BR007,Belagavi Main Branch,Belagavi,Karnataka,India,NOVA0000007,Aryan Mukherjee,2000-04-18
+BR008,Indore City Centre Branch,Indore,Madhya Pradesh,India,NOVA0000008,Anika Shetty,2014-05-21
+BR009,Chennai Market Road Branch,Chennai,Tamil Nadu,India,NOVA0000009,Saanvi Mukherjee,2020-05-20
+BR010,Belagavi Station Road Branch,Belagavi,Karnataka,India,NOVA0000010,Rashmi Iyer,1999-01-26
+BR011,Kanpur MG Road Branch,Kanpur,Uttar Pradesh,India,NOVA0000011,Sangeeta More,2016-12-23
+BR012,Shimla Civil Lines Branch,Shimla,Himachal Pradesh,India,NOVA0000012,Swati More,2000-01-26
+BR013,Ranchi Main Branch,Ranchi,Jharkhand,India,NOVA0000013,Basavaraj Iyer,2017-09-19
+BR014,Bhubaneswar City Centre Branch,Bhubaneswar,Odisha,India,NOVA0000014,Basavaraj Bose,2008-02-26
+BR015,Patna Market Road Branch,Patna,Bihar,India,NOVA0000015,Shivraj Menon,1996-03-09
+BR016,Guwahati Station Road Branch,Guwahati,Assam,India,NOVA0000016,Snehal Kale,2024-01-09
+BR017,Lucknow MG Road Branch,Lucknow,Uttar Pradesh,India,NOVA0000017,Varun Prabhu,2000-10-24
+BR018,Mysuru Civil Lines Branch,Mysuru,Karnataka,India,NOVA0000018,Amit Prabhu,2013-04-14
+BR019,Ludhiana Main Branch,Ludhiana,Punjab,India,NOVA0000019,Abhishek Sen,2001-04-06
+BR020,Jaipur City Centre Branch,Jaipur,Rajasthan,India,NOVA0000020,Aditya Salunkhe,2023-01-22
+BR021,Lucknow Market Road Branch,Lucknow,Uttar Pradesh,India,NOVA0000021,Rohan Das,2017-05-31
+BR022,Howrah Station Road Branch,Howrah,West Bengal,India,NOVA0000022,Ishaan Iyer,2019-04-30
+BR023,Delhi MG Road Branch,Delhi,Delhi,India,NOVA0000023,Nisha Chavan,2008-07-13
+BR024,Vijayawada Civil Lines Branch,Vijayawada,Andhra Pradesh,India,NOVA0000024,Geeta Chowdhury,2009-07-21
+BR025,Guwahati Main Branch,Guwahati,Assam,India,NOVA0000025,Meera Ghosh,2014-05-25
+BR026,Thiruvananthapuram City Centre Branch,Thiruvananthapuram,KERALA,India,NOVA0000026,Raghavendra Rao,2018-10-04
+BR027,Surat Market Road Branch,Surat,GUJARAT,India,NOVA0000027,Sunita Rao,2020-07-25
+BR028,Amritsar Station Road Branch,Amritsar,Punjab,India,NOVA0000028,Amit Verma,1996-07-07
+BR029,Kanpur MG Road Branch,Kanpur,Uttar Pradesh,India,NOVA0000029,Shalini Singh,2015-03-31
+BR030,Vadodara Civil Lines Branch,Vadodara,Gujarat,India,NOVA0000030,Saanvi Shetty,1999-03-02
+BR031,Jaipur Main Branch,Jaipur,Rajasthan,India,NOVA0000031,Tanvi Shetty,2004-05-08
+BR032,Coimbatore City Centre Branch,Coimbatore,Tamil Nadu,India,NOVA0000032,Rahul Naidu,2020-01-21
+BR033,Belagavi Market Road Branch,Belagavi,Karnataka,India,NOVA0000033,Vishal Mukherjee,2003-04-07
+BR034,Varanasi Station Road Branch,Varanasi,Uttar Pradesh,India,NOVA0000034,Meera Krishnan,2019-02-09
+BR035,Panaji MG Road Branch,Panaji,Goa,India,NOVA0000035,Vishal Agarwal,2009-06-05
+BR036,Nagpur Civil Lines Branch,Nagpur,Maharashtra,India,NOVA0000036,Girish Reddy,2002-09-30
+BR037,Dehradun Main Branch,Dehradun,Uttarakhand,India,NOVA0000037,Amit Ghosh,2005-09-10
+BR038,Ludhiana City Centre Branch,Ludhiana,Punjab,India,NOVA0000038,Ashok Mukherjee,2011-05-24
+BR039,Hyderabad Market Road Branch,Hyderabad,Telangana,India,NOVA0000039,,2018-03-11
+BR040,Thiruvananthapuram Station Road Branch,Thiruvananthapuram,Kerala,India,NOVA0000040,Yash Dutta,2013-07-29
+BR041,Hubballi MG Road Branch,Hubballi,Karnataka,India,NOVA0000041,Kiran Jadhav,2023-01-24
+BR042,Bhubaneswar Civil Lines Branch,Bhubaneswar,Odisha,India,NOVA0000042,Sneha Bose,2021-03-01
+BR043,Patna Main Branch,Patna,Bihar,India,NOVA0000043,Priya Jadhav,2017-11-06
+BR044,Howrah City Centre Branch,Howrah,West Bengal,India,NOVA0000044,Naveen Hegde,2013-06-28
+BR045,Nagpur Market Road Branch,Nagpur,Maharashtra,India,NOVA0000045,Payal Chowdhury,2004-05-28
+BR046,Raipur Station Road Branch,Raipur,Chhattisgarh,India,NOVA0000046,Krishna Menon,2007-12-19
+BR047,Vadodara MG Road Branch,Vadodara,Gujarat,India,NOVA0000047,Gaurav Roy,1999-06-13
+BR048,Panaji Civil Lines Branch,Panaji,Goa,India,NOVA0000048,Kabir Sen,2006-11-07
+BR049,Indore Main Branch,Indore,Madhya Pradesh,India,NOVA0000049,Abhishek Joshi,2022-11-14
+BR050,Guwahati City Centre Branch,Guwahati,Assam,India,NOVA0000050,Bhavna Shah,2008-05-08
+BR051,Bhubaneswar Market Road Branch,Bhubaneswar,Odisha,India,NOVA0000051,Naveen Kamath,1999-04-19
+BR052,Delhi Station Road Branch,Delhi,Delhi,India,NOVA0000052,Shalini Patil,2014-11-27
+BR053,Howrah MG Road Branch,Howrah,West Bengal,India,NOVA0000053,,2023-12-01
+BR054,Jaipur Civil Lines Branch,Jaipur,Rajasthan,India,NOVA0000054,Meera Yadav,2021-02-27
+BR055,Udaipur Main Branch,Udaipur,Rajasthan,India,NOVA0000055,Prasad Ghosh,2003-12-13
+BR056,Pune City Centre Branch,Pune,Maharashtra,India,NOVA0000056,Anil Roy,2009-03-01
+BR057,Kanpur Market Road Branch,Kanpur,Uttar Pradesh,India,NOVA0000057,Vandana Singh,2011-05-27
+BR058,Hubballi Station Road Branch,Hubballi,Karnataka,India,NOVA0000058,Bhavna Venkatesh,2003-03-10
+BR059,Ranchi MG Road Branch,Ranchi,Jharkhand,India,NOVA0000059,Anil Nair,2003-10-17
+BR060,Indore Civil Lines Branch,Indore,Madhya Pradesh,India,NOVA0000060,Nisha Kotian,2002-11-11
+BR061,Visakhapatnam Main Branch,Visakhapatnam,Andhra Pradesh,India,NOVA0000061,,2024-11-04
+BR062,Ranchi City Centre Branch,Ranchi,Jharkhand,India,NOVA0000062,Sunita Venkatesh,2017-08-20
+BR063,Howrah Market Road Branch,Howrah,West Bengal,India,NOVA0000063,Rashmi Rao,2020-05-21
+BR064,Raipur Station Road Branch,Raipur,Chhattisgarh,India,NOVA0000064,Girish Venkatesh,2019-09-06
+BR065,Surat MG Road Branch,Surat,Gujarat,India,NOVA0000065,Rekha Iyer,2023-10-26
+BR066,Kolkata Civil Lines Branch,Kolkata,West Bengal,India,NOVA0000066,Sunil Hegde,1999-01-20
+BR067,Visakhapatnam Main Branch,Visakhapatnam,Andhra Pradesh,India,NOVA0000067,Ayaan Agarwal,2021-07-27
+BR068,Howrah City Centre Branch,Howrah,West Bengal,India,NOVA0000068,Ishaan Mukherjee,1997-12-06
+BR069,Belagavi Market Road Branch,Belagavi,Karnataka,India,NOVA0000069,Girish Verma,2009-10-15
+BR070,Jaipur Station Road Branch,Jaipur,Rajasthan,India,NOVA0000070,Shalini Salunkhe,2013-03-28
+BR071,Guwahati MG Road Branch,Guwahati,ASSAM,India,NOVA0000071,Aryan Das,2006-05-18
+BR072,Delhi Civil Lines Branch,Delhi,Delhi,India,NOVA0000072,Prasad More,2000-03-28
+BR073,Jaipur Main Branch,Jaipur,Rajasthan,India,NOVA0000073,Lakshmi Kumar,2001-07-30
+BR074,Mysuru City Centre Branch,Mysuru,Karnataka,India,NOVA0000074,Rajesh Naidu,2019-12-01
+BR075,Indore Market Road Branch,Indore,Madhya Pradesh,India,NOVA0000075,Geeta Venkatesh,2005-03-30
+BR076,Udaipur Station Road Branch,Udaipur,Rajasthan,India,NOVA0000076,Yash Nair,2004-12-31
+BR077,Kolkata MG Road Branch,Kolkata,West Bengal,India,NOVA0000077,Pallavi Prabhu,2022-10-12
+BR078,Coimbatore Civil Lines Branch,Coimbatore,Tamil Nadu,India,NOVA0000078,Riya Kotian,2000-03-04
+BR079,Varanasi Main Branch,Varanasi,Uttar Pradesh,India,NOVA0000079,Myra Naidu,2022-07-18
+BR080,Bhopal City Centre Branch,Bhopal,Madhya Pradesh,India,NOVA0000080,Vikram Chatterjee,2022-09-16
+BR081,Vijayawada Market Road Branch,Vijayawada,Andhra Pradesh,India,NOVA0000081,Raghavendra Sharma,2013-05-11
+BR082,Vadodara Station Road Branch,Vadodara,Gujarat,India,NOVA0000082,Suman Sen,2000-10-19
+BR083,Hubballi MG Road Branch,Hubballi,Karnataka,India,NOVA0000083,Vivaan Dutta,2000-07-09
+BR084,Ludhiana Civil Lines Branch,Ludhiana,Punjab,India,NOVA0000084,Sarita Menon,2004-04-04
+BR085,Thiruvananthapuram Main Branch,Thiruvananthapuram,Kerala,India,NOVA0000085,Vishal Verma,2012-09-29
+BR086,Patna City Centre Branch,Patna,Bihar,India,NOVA0000086,Sunita Gupta,2000-06-15
+BR087,Belagavi Market Road Branch,Belagavi,Karnataka,India,NOVA0000087,Swati Reddy,2009-03-19
+BR088,Warangal Station Road Branch,Warangal,Telangana,India,NOVA0000088,Chetan Krishnan,1999-05-08
+BR089,Bhubaneswar MG Road Branch,Bhubaneswar,Odisha,India,NOVA0000089,Yash Venkatesh,2011-09-02
+BR090,Ludhiana Civil Lines Branch,Ludhiana,Punjab,India,NOVA0000090,Pooja Singh,1996-08-12
+BR091,Vadodara Main Branch,Vadodara,Gujarat,India,NOVA0000091,Karan Kotian,2016-07-24
+BR092,Amritsar City Centre Branch,Amritsar,Punjab,India,NOVA0000092,Kavya Shah,1997-08-09
+BR093,Ludhiana Market Road Branch,Ludhiana,Punjab,India,NOVA0000093,Ishaan Naidu,2001-08-25
+BR094,Ahmedabad Station Road Branch,Ahmedabad,Gujarat,India,NOVA0000094,Divya Deshmukh,2001-01-23
+BR095,Panaji MG Road Branch,Panaji,Goa,India,NOVA0000095,Pooja Naik,2020-02-06
+BR096,Hyderabad Civil Lines Branch,Hyderabad,Telangana,India,NOVA0000096,Krishna Raghunathan,1997-07-19
+BR097,Coimbatore Main Branch,Coimbatore,Tamil Nadu,India,NOVA0000097,Sarita Patil,2008-06-13
+BR098,Indore City Centre Branch,Indore,Madhya Pradesh,India,NOVA0000098,Shivraj Joshi,2013-02-21
+BR099,Thiruvananthapuram Market Road Branch,Thiruvananthapuram,Kerala,India,NOVA0000099,Rashmi Bose,2010-12-18
+BR100,Mysuru Station Road Branch,Mysuru,Karnataka,India,NOVA0000100,Arjun Mukherjee,2015-09-28
+BR101,Ludhiana MG Road Branch,Ludhiana,Punjab,India,NOVA0000101,Vikram Roy,2019-04-17
+BR102,Delhi Civil Lines Branch,Delhi,Delhi,India,NOVA0000102,Vishal Salunkhe,2007-06-01
+BR103,Amritsar Main Branch,Amritsar,Punjab,India,NOVA0000103,Sanjay Das,2020-01-08
+BR104,Mumbai City Centre Branch,Mumbai,Maharashtra,India,NOVA0000104,Varun Ghosh,2005-03-22
+BR105,Guwahati Market Road Branch,Guwahati,Assam,India,NOVA0000105,Swati Bhat,2024-07-19
+BR106,Guwahati Station Road Branch,Guwahati,Assam,India,NOVA0000106,Karan Hegde,2010-08-19
+BR107,Guwahati MG Road Branch,Guwahati,Assam,India,NOVA0000107,Anjali Yadav,2017-05-06
+BR108,Bhopal Civil Lines Branch,Bhopal,Madhya Pradesh,India,NOVA0000108,Rohan Singh,2021-05-17
+BR109,Jaipur Main Branch,Jaipur,Rajasthan,India,NOVA0000109,Vikram Sen,2018-12-27
+BR110,Patna City Centre Branch,Patna,Bihar,India,NOVA0000110,Kavya Sharma,2020-09-07
+BR111,Hyderabad Market Road Branch,Hyderabad,Telangana,India,NOVA0000111,Deepika Shah,2011-07-24
+BR112,Guwahati Station Road Branch,Guwahati,Assam,India,NOVA0000112,Vikram Rao,1997-04-05
+BR113,Varanasi MG Road Branch,Varanasi,UTTAR PRADESH,India,NOVA0000113,Manoj Chatterjee,2010-04-20
+BR114,Jaipur Civil Lines Branch,Jaipur,Rajasthan,India,NOVA0000114,Komal Gupta,2001-04-06
+BR115,Lucknow Main Branch,Lucknow,Uttar Pradesh,India,NOVA0000115,Namrata Sharma,2021-10-14
+BR116,Varanasi City Centre Branch,Varanasi,Uttar Pradesh,India,NOVA0000116,Kavya More,2002-11-12
+BR117,Pune Market Road Branch,Pune,Maharashtra,India,NOVA0000117,Girish Ghosh,2002-08-12
+BR118,Mysuru Station Road Branch,Mysuru,KARNATAKA,India,NOVA0000118,Gaurav Gupta,2003-03-26
+BR119,Coimbatore MG Road Branch,Coimbatore,Tamil Nadu,India,NOVA0000119,Neha Bose,2014-08-20
+BR120,Bengaluru Civil Lines Branch,Bengaluru,Karnataka,India,NOVA0000120,Aditi Hegde,2012-07-26
+BR121,Vadodara Main Branch,Vadodara,Gujarat,India,NOVA0000121,Manoj Sen,2023-07-09
+BR122,Bhopal City Centre Branch,Bhopal,Madhya Pradesh,India,NOVA0000122,Aditya Bhosale,2008-01-27
+BR123,Bhopal Market Road Branch,Bhopal,Madhya Pradesh,India,NOVA0000123,Rahul Salunkhe,2004-03-09
+BR124,Jaipur Station Road Branch,Jaipur,Rajasthan,India,NOVA0000124,Payal Deshmukh,1997-06-05
+BR125,Dehradun MG Road Branch,Dehradun,Uttarakhand,India,NOVA0000125,Shivraj Kumar,1996-03-15
+BR126,Varanasi Civil Lines Branch,Varanasi,Uttar Pradesh,India,NOVA0000126,Umesh Joshi,2006-11-01
+BR127,Belagavi Main Branch,Belagavi,Karnataka,India,NOVA0000127,Raghavendra Raghunathan,2022-11-07
+BR128,Bhubaneswar City Centre Branch,Bhubaneswar,ODISHA,India,NOVA0000128,Rashmi Reddy,2011-03-11
+BR129,Varanasi Market Road Branch,Varanasi,Uttar Pradesh,India,NOVA0000129,Reyansh Verma,2021-11-30
+BR130,Thiruvananthapuram Station Road Branch,Thiruvananthapuram,Kerala,India,NOVA0000130,Krishna Naik,1998-12-13
+BR131,Varanasi MG Road Branch,Varanasi,Uttar Pradesh,India,NOVA0000131,Sunil Nair,1998-09-15
+BR132,Varanasi Civil Lines Branch,Varanasi,Uttar Pradesh,India,NOVA0000132,Umesh Prabhu,2020-03-03
+BR133,Belagavi Main Branch,Belagavi,Karnataka,India,NOVA0000133,Anjali Krishnan,1999-02-04
+BR134,Varanasi City Centre Branch,Varanasi,Uttar Pradesh,India,NOVA0000134,Vishal Gupta,1997-07-04
+BR135,Guwahati Market Road Branch,Guwahati,Assam,India,NOVA0000135,Girish Yadav,2007-09-20
+BR136,Warangal Station Road Branch,Warangal,Telangana,India,NOVA0000136,Tanvi Gupta,2022-10-27
+BR137,Kochi MG Road Branch,Kochi,Kerala,India,NOVA0000137,Amit Pawar,2015-12-29
+BR138,Pune Civil Lines Branch,Pune,Maharashtra,India,NOVA0000138,Riya Sen,1998-11-15
+BR139,Kolkata Main Branch,Kolkata,West Bengal,India,NOVA0000139,Myra Nair,2020-04-11
+BR140,Vadodara City Centre Branch,Vadodara,Gujarat,India,NOVA0000140,Santosh Desai,2020-06-18
+BR141,Shimla Market Road Branch,Shimla,Himachal Pradesh,India,NOVA0000141,Pallavi Ghosh,2019-03-22
+BR142,Chennai Station Road Branch,Chennai,Tamil Nadu,India,NOVA0000142,Anil Mukherjee,2022-03-06
+BR143,Hyderabad MG Road Branch,Hyderabad,Telangana,India,NOVA0000143,Payal Gupta,2002-12-16
+BR144,Surat Civil Lines Branch,Surat,Gujarat,India,NOVA0000144,Abhishek Bhat,2024-05-29
+BR145,Shimla Main Branch,Shimla,Himachal Pradesh,India,NOVA0000145,,2005-04-20
+BR146,Dehradun City Centre Branch,Dehradun,Uttarakhand,India,NOVA0000146,Diya More,2019-04-05
+BR147,Pune Market Road Branch,Pune,Maharashtra,India,NOVA0000147,Jyoti Mukherjee,2012-10-20
+BR148,Coimbatore Station Road Branch,Coimbatore,Tamil Nadu,India,NOVA0000148,Chetan Dutta,2018-08-10
+BR149,Amritsar MG Road Branch,Amritsar,Punjab,India,NOVA0000149,Deepak Kamath,2014-03-17
+BR150,Nagpur Civil Lines Branch,Nagpur,Maharashtra,India,NOVA0000150,Aditya Bose,2014-08-19
+BR047,Vadodara MG Road Branch,Vadodara,Gujarat,India,NOVA0000047,Gaurav Roy,1999-06-13
+BR044,Howrah City Centre Branch,Howrah,West Bengal,India,NOVA0000044,Naveen Hegde,2013-06-28
