@@ -1,0 +1,65 @@
+-- Creating the database 
+CREATE DATABASE Digital_Banking_database
+
+USE Digital_Banking_database
+
+-- Creating Schema 
+CREATE SCHEMA landing
+
+-- Creating Customers Table 
+CREATE TABLE landing.Customers (
+    customer_id VARCHAR(255),
+    customer_name VARCHAR(255),
+    gender VARCHAR(20),
+    dob VARCHAR(20),
+    phone VARCHAR(20),
+    email VARCHAR(50),
+    occupation VARCHAR(50),
+    customer_type VARCHAR(50),
+    city VARCHAR(50),
+    state VARCHAR(50),
+    country VARCHAR(50),
+    created_date VARCHAR(20),
+    status VARCHAR(20)
+)
+
+-- Creating Accounts Table 
+CREATE TABLE landing.Accounts (
+    account_id VARCHAR(255),
+    customer_id VARCHAR(255),
+    branch_id VARCHAR(255),
+    account_number VARCHAR(255),
+    account_type VARCHAR(50),
+    balance VARCHAR(50),
+    currency VARCHAR(50),
+    opened_date VARCHAR(20),
+    status VARCHAR(20)
+)
+
+-- Creating Branches Table 
+CREATE TABLE landing.Branches (
+    branch_id VARCHAR(255),
+    branch_name VARCHAR(255),
+    city VARCHAR(50),
+    state VARCHAR(50),
+    country VARCHAR(50),
+    ifsc_code VARCHAR(50),
+    manager_name VARCHAR(50),
+    opened_date VARCHAR(20)
+)
+
+-- Creating Loans Table 
+CREATE TABLE landing.Loans (
+    loan_id VARCHAR(255),
+    customer_id VARCHAR(50),
+    branch_id VARCHAR(255),
+    loan_type VARCHAR(50),
+    loan_amount VARCHAR(50),
+    interest_rate VARCHAR(50),
+    loan_term VARCHAR(50),
+    loan_status VARCHAR(20),
+    disbursement_date VARCHAR(20)
+)
+
+
+
