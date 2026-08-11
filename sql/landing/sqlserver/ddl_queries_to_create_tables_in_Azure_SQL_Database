@@ -61,5 +61,74 @@ CREATE TABLE landing.Loans (
     disbursement_date VARCHAR(20)
 )
 
+-- Creating the ETL_File_Config table to store meta-data information related to landingZone AzureSQLDatabase files and tables 
+CREATE TABLE dbo.ETL_File_Config
+(
+    config_id INT IDENTITY(1,1),
+    source_folder VARCHAR(500),
+    source_file VARCHAR(255),
+    target_server VARCHAR(255),
+    target_database VARCHAR(255),
+    target_schema VARCHAR(100),
+    target_table VARCHAR(255),
+    is_active BIT
+);
 
+-- Insert the meta-data to ETL_File_Config table 
+INSERT INTO ETL_File_Config
+(
+    source_folder,
+    source_file,
+    target_server,
+    target_database,
+    target_schema,
+    target_table,
+    is_active
+)
+VALUES
+(
+    'data/landing/sqlserver',
+    'customers.csv',
+    'mssqlazureserver.database.windows.net',
+    'Digital_Banking_database',
+    'landing',
+    'Customers',
+    1
+),
+(
+    'data/landing/sqlserver',
+    'accounts.csv',
+    'mssqlazureserver.database.windows.net',
+    'Digital_Banking_database',
+    'landing',
+    'Accounts',
+    1
+),
+(
+    'data/landing/sqlserver',
+    'branches.csv',
+    'mssqlazureserver.database.windows.net',
+    'Digital_Banking_database',
+    'landing',
+    'Branhes',
+    1
+),
+(
+    'data/landing/sqlserver',
+    'loans.csv',
+    'mssqlazureserver.database.windows.net',
+    'Digital_Banking_database',
+    'landing',
+    'Loans',
+    1
+);
+
+-- Display the table data using bolow queries
+
+SELECT TOP 100 * FROM dbo.ETL_File_Config
+
+SELECT COUNT(*) FROM landing.Customers
+SELECT COUNT(*) FROM landing.Accounts
+SELECT COUNT(*) FROM landing.Branches
+SELECT COUNT(*) FROM landing.Loans
 
