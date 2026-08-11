@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "azure-data-factory-369"
+		},
+		"LS_AzureSqlDB_Target_password": {
+			"value": ""
+		},
+		"LS_LandingZone_SQL_DB_accountKey": {
+			"value": ""
+		},
+		"LS_AzureSqlDB_Target_properties_typeProperties_server": {
+			"value": "mssqlazureserver.database.windows.net"
+		},
+		"LS_AzureSqlDB_Target_properties_typeProperties_database": {
+			"value": "Digital_Banking_database"
+		},
+		"LS_AzureSqlDB_Target_properties_typeProperties_userName": {
+			"value": "nataraj"
+		},
+		"LS_LandingZone_SQL_DB_properties_typeProperties_url": {
+			"value": "https://azurestgaccount.dfs.core.windows.net/"
+		}
+	}
+}
