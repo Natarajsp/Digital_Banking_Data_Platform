@@ -1,7 +1,7 @@
 -- Creating the database 
-CREATE DATABASE Digital_Banking_database
+CREATE DATABASE azuredatabase
 
-USE Digital_Banking_database
+USE azuredatabase
 
 -- Creating Schema 
 CREATE SCHEMA landing
@@ -90,7 +90,7 @@ VALUES
     'data/landing/sqlserver',
     'customers.csv',
     'mssqlazureserver.database.windows.net',
-    'Digital_Banking_database',
+    'azuredatabase',
     'landing',
     'Customers',
     1
@@ -99,7 +99,7 @@ VALUES
     'data/landing/sqlserver',
     'accounts.csv',
     'mssqlazureserver.database.windows.net',
-    'Digital_Banking_database',
+    'azuredatabase',
     'landing',
     'Accounts',
     1
@@ -108,7 +108,7 @@ VALUES
     'data/landing/sqlserver',
     'branches.csv',
     'mssqlazureserver.database.windows.net',
-    'Digital_Banking_database',
+    'azuredatabase',
     'landing',
     'Branhes',
     1
@@ -117,7 +117,7 @@ VALUES
     'data/landing/sqlserver',
     'loans.csv',
     'mssqlazureserver.database.windows.net',
-    'Digital_Banking_database',
+    'azuredatabase',
     'landing',
     'Loans',
     1
