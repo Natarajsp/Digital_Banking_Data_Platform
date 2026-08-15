@@ -110,7 +110,7 @@ VALUES
     'mssqlazureserver.database.windows.net',
     'azuredatabase',
     'landing',
-    'Branhes',
+    'Branches',
     1
 ),
 (
