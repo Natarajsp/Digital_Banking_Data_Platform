@@ -2,16 +2,21 @@
 	"name": "LS_AzureSqlDB_Target",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
+		"parameters": {
+			"database_name": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
 			"server": "mssqlazureserver.database.windows.net",
-			"database": "azuredatabase",
+			"database": "@{linkedService().database_name}",
 			"encrypt": "mandatory",
 			"trustServerCertificate": false,
 			"authenticationType": "SQL",
 			"userName": "nataraj",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEU0QTk4RTQ5LTIzMjMtNDJGRi04QkM5LTAyMTI1MERDNUE2NF9iOWE2ODQzYy0xMDNhLTRjZjYtODcxNi0wZDJjODNkOTAzMmEiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEU0QTk4RTQ5LTIzMjMtNDJGRi04QkM5LTAyMTI1MERDNUE2NF8yZTQzNWQ1OC0yMDgyLTQwNWMtYTQ3ZS04YzlmMGQ2NTEzZDgiDQp9"
 		}
 	}
 }
