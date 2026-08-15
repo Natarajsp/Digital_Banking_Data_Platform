@@ -26,7 +26,8 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"table_schema": "dbo",
-							"table_name": "ETL_File_Config"
+							"table_name": "ETL_File_Config",
+							"database_name": "azuredatabase"
 						}
 					},
 					"firstRowOnly": false

@@ -3,13 +3,22 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_AzureSqlDB_Target",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"database_name": {
+					"value": "@dataset().database_name",
+					"type": "Expression"
+				}
+			}
 		},
 		"parameters": {
 			"table_schema": {
 				"type": "String"
 			},
 			"table_name": {
+				"type": "String"
+			},
+			"database_name": {
 				"type": "String"
 			}
 		},
