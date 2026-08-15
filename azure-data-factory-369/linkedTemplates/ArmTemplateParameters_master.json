@@ -15,7 +15,7 @@
 			"value": "mssqlazureserver.database.windows.net"
 		},
 		"LS_AzureSqlDB_Target_properties_typeProperties_database": {
-			"value": "Digital_Banking_database"
+			"value": "@{linkedService().database_name}"
 		},
 		"LS_AzureSqlDB_Target_properties_typeProperties_userName": {
 			"value": "nataraj"

@@ -21,7 +21,7 @@
 		},
 		"LS_AzureSqlDB_Target_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "Digital_Banking_database"
+			"defaultValue": "@{linkedService().database_name}"
 		},
 		"LS_AzureSqlDB_Target_properties_typeProperties_userName": {
 			"type": "string",
@@ -41,6 +41,11 @@
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"parameters": {
+					"database_name": {
+						"type": "String"
+					}
+				},
 				"annotations": [],
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
@@ -82,13 +87,22 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "LS_AzureSqlDB_Target",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"database_name": {
+							"value": "@dataset().database_name",
+							"type": "Expression"
+						}
+					}
 				},
 				"parameters": {
 					"table_schema": {
 						"type": "String"
 					},
 					"table_name": {
+						"type": "String"
+					},
+					"database_name": {
 						"type": "String"
 					}
 				},
@@ -182,7 +196,8 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"table_schema": "dbo",
-									"table_name": "ETL_File_Config"
+									"table_name": "ETL_File_Config",
+									"database_name": "azuredatabase"
 								}
 							},
 							"firstRowOnly": false
@@ -275,6 +290,10 @@
 												"table_name": {
 													"value": "@item().target_table",
 													"type": "Expression"
+												},
+												"database_name": {
+													"value": "@item().target_database",
+													"type": "Expression"
 												}
 											}
 										}
@@ -313,7 +332,13 @@
 									},
 									"linkedServiceName": {
 										"referenceName": "LS_AzureSqlDB_Target",
-										"type": "LinkedServiceReference"
+										"type": "LinkedServiceReference",
+										"parameters": {
+											"database_name": {
+												"value": "@item().target_database",
+												"type": "Expression"
+											}
+										}
 									}
 								}
 							]
