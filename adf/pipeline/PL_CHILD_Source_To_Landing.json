@@ -1,0 +1,200 @@
+{
+	"name": "PL_CHILD_Source_To_Landing",
+	"properties": {
+		"activities": [
+			{
+				"name": "SW_Source_Type",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@concat(\n    toUpper(pipeline().parameters.p_source_type), \n    '_', \n    toUpper(pipeline().parameters.p_load_type)\n    )",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "AZURESQL_FULL",
+							"activities": [
+								{
+									"name": "CPY_FULL_Load_Source_To_Landing",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "ParquetSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "ParquetReadSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "DS_TGT_ADLS_Landing",
+											"type": "DatasetReference"
+										}
+									]
+								}
+							]
+						},
+						{
+							"value": "AZURESQL_INCREMENTAL",
+							"activities": [
+								{
+									"name": "Wait2",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 1
+									}
+								}
+							]
+						},
+						{
+							"value": "ADLS_FULL",
+							"activities": [
+								{
+									"name": "Wait3",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 1
+									}
+								}
+							]
+						},
+						{
+							"value": "ADLS_INCREMENTAL",
+							"activities": [
+								{
+									"name": "Wait4",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 1
+									}
+								}
+							]
+						},
+						{
+							"value": "REST_API_FULL",
+							"activities": [
+								{
+									"name": "Wait5",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 1
+									}
+								}
+							]
+						},
+						{
+							"value": "REST_API_INCREMENTAL",
+							"activities": [
+								{
+									"name": "Wait6",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 1
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"p_config_id": {
+				"type": "int",
+				"defaultValue": "@item().config_id"
+			},
+			"p_source_system": {
+				"type": "string",
+				"defaultValue": "@item().source_system"
+			},
+			"p_source_type": {
+				"type": "string",
+				"defaultValue": "@item().source_type"
+			},
+			"p_source_schema": {
+				"type": "string",
+				"defaultValue": "@item().source_schema"
+			},
+			"p_source_table": {
+				"type": "string",
+				"defaultValue": "@item().source_table"
+			},
+			"p_source_path": {
+				"type": "string",
+				"defaultValue": "@item().source_path"
+			},
+			"p_target_schema": {
+				"type": "string",
+				"defaultValue": "@item().target_schema"
+			},
+			"p_target_table": {
+				"type": "string",
+				"defaultValue": "@item().target_table"
+			},
+			"p_target_path": {
+				"type": "string",
+				"defaultValue": "@item().target_path"
+			},
+			"p_watermark_column": {
+				"type": "string",
+				"defaultValue": "@item().watermark_column"
+			},
+			"p_last_watermark": {
+				"type": "string",
+				"defaultValue": "@item().last_watermark"
+			},
+			"p_load_type": {
+				"type": "string",
+				"defaultValue": "@item().load_type"
+			},
+			"p_primary_key_column": {
+				"type": "string",
+				"defaultValue": "@item().primary_key_column"
+			},
+			"p_file_format": {
+				"type": "string",
+				"defaultValue": "@item().file_format"
+			},
+			"p_created_date": {
+				"type": "string",
+				"defaultValue": "@item().created_date"
+			},
+			"p_is_active": {
+				"type": "string",
+				"defaultValue": "@item().is_active"
+			},
+			"p_modified_date": {
+				"type": "string",
+				"defaultValue": "@item().modified_date"
+			}
+		},
+		"annotations": []
+	}
+}
