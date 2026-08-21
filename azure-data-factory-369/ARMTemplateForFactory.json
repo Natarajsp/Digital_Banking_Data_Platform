@@ -15,6 +15,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_LandingZone_SQL_DB'"
 		},
+		"LS_ADLS_Gen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azureblobstgaccount.dfs.core.windows.net/"
+		},
+		"LS_AzureSQL_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "mssqlazureserver.database.windows.net"
+		},
+		"LS_AzureSQL_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "azuredatabase"
+		},
 		"LS_AzureSqlDB_Target_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "mssqlazureserver.database.windows.net"
@@ -227,6 +239,271 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PL_CHILD_Source_To_Landing')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "SW_Source_Type",
+						"type": "Switch",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"on": {
+								"value": "@concat(\n    toUpper(pipeline().parameters.p_source_type), \n    '_', \n    toUpper(pipeline().parameters.p_load_type)\n    )",
+								"type": "Expression"
+							},
+							"cases": [
+								{
+									"value": "AZURESQL_FULL",
+									"activities": [
+										{
+											"name": "Wait7",
+											"type": "Wait",
+											"dependsOn": [],
+											"userProperties": [],
+											"typeProperties": {
+												"waitTimeInSeconds": 1
+											}
+										}
+									]
+								},
+								{
+									"value": "AZURESQL_INCREMENTAL",
+									"activities": [
+										{
+											"name": "Wait2",
+											"type": "Wait",
+											"dependsOn": [],
+											"userProperties": [],
+											"typeProperties": {
+												"waitTimeInSeconds": 1
+											}
+										}
+									]
+								},
+								{
+									"value": "ADLS_FULL",
+									"activities": [
+										{
+											"name": "Wait3",
+											"type": "Wait",
+											"dependsOn": [],
+											"userProperties": [],
+											"typeProperties": {
+												"waitTimeInSeconds": 1
+											}
+										}
+									]
+								},
+								{
+									"value": "ADLS_INCREMENTAL",
+									"activities": [
+										{
+											"name": "Wait4",
+											"type": "Wait",
+											"dependsOn": [],
+											"userProperties": [],
+											"typeProperties": {
+												"waitTimeInSeconds": 1
+											}
+										}
+									]
+								},
+								{
+									"value": "REST_API_FULL",
+									"activities": [
+										{
+											"name": "Wait5",
+											"type": "Wait",
+											"dependsOn": [],
+											"userProperties": [],
+											"typeProperties": {
+												"waitTimeInSeconds": 1
+											}
+										}
+									]
+								},
+								{
+									"value": "REST_API_INCREMENTAL",
+									"activities": [
+										{
+											"name": "Wait6",
+											"type": "Wait",
+											"dependsOn": [],
+											"userProperties": [],
+											"typeProperties": {
+												"waitTimeInSeconds": 1
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"p_config_id": {
+						"type": "string",
+						"defaultValue": "@item().config_id"
+					},
+					"p_source_system": {
+						"type": "string",
+						"defaultValue": "@item().source_system"
+					},
+					"p_source_type": {
+						"type": "string",
+						"defaultValue": "@item().source_type"
+					},
+					"p_source_schema": {
+						"type": "string",
+						"defaultValue": "@item().source_schema"
+					},
+					"p_source_table": {
+						"type": "string",
+						"defaultValue": "@item().source_table"
+					},
+					"p_source_path": {
+						"type": "string",
+						"defaultValue": "@item().source_path"
+					},
+					"p_target_schema": {
+						"type": "string",
+						"defaultValue": "@item().target_schema"
+					},
+					"p_target_table": {
+						"type": "string",
+						"defaultValue": "@item().target_table"
+					},
+					"p_target_path": {
+						"type": "string",
+						"defaultValue": "@item().target_path"
+					},
+					"p_watermark_column": {
+						"type": "string",
+						"defaultValue": "@item().watermark_column"
+					},
+					"p_last_watermark": {
+						"type": "string",
+						"defaultValue": "@item().last_watermark"
+					},
+					"p_load_type": {
+						"type": "string",
+						"defaultValue": "@item().load_type"
+					},
+					"p_primary_key_column": {
+						"type": "string",
+						"defaultValue": "@item().primary_key_column"
+					},
+					"p_file_format": {
+						"type": "string",
+						"defaultValue": "@item().file_format"
+					},
+					"p_created_date": {
+						"type": "string",
+						"defaultValue": "@item().created_date"
+					},
+					"p_is_active": {
+						"type": "string",
+						"defaultValue": "@item().is_active"
+					},
+					"p_modified_date": {
+						"type": "string",
+						"defaultValue": "@item().modified_date"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_MASTER_Landing_Ingestion')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "LKP_ETL_Config",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT * \nFROM [dbo].[etl_config]\nWHERE is_active = 1;",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "DS_SRC_AZURESQL",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "FE_Active_ETL_Config",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "LKP_ETL_Config",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('LKP_ETL_Config').output.value",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "EXE_Source_To_Landing",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PL_CHILD_Source_To_Landing",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {}
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SRC_AZURESQL')]",
+				"[concat(variables('factoryId'), '/pipelines/PL_CHILD_Source_To_Landing')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_AzureSQL_DB_Target')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -313,6 +590,153 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_SRC_AZURESQL')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_AzureSQL",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "config_id",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "source_system",
+						"type": "varchar"
+					},
+					{
+						"name": "source_type",
+						"type": "varchar"
+					},
+					{
+						"name": "source_schema",
+						"type": "varchar"
+					},
+					{
+						"name": "source_table",
+						"type": "varchar"
+					},
+					{
+						"name": "source_path",
+						"type": "varchar"
+					},
+					{
+						"name": "target_schema",
+						"type": "varchar"
+					},
+					{
+						"name": "target_table",
+						"type": "varchar"
+					},
+					{
+						"name": "target_path",
+						"type": "varchar"
+					},
+					{
+						"name": "load_type",
+						"type": "varchar"
+					},
+					{
+						"name": "watermark_column",
+						"type": "varchar"
+					},
+					{
+						"name": "last_watermark",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "primary_key_column",
+						"type": "varchar"
+					},
+					{
+						"name": "file_format",
+						"type": "varchar"
+					},
+					{
+						"name": "is_active",
+						"type": "bit"
+					},
+					{
+						"name": "created_date",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "modified_date",
+						"type": "datetime2",
+						"scale": 7
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "etl_config"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_AzureSQL')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_TGT_ADLS_Landing')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Gen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Gen2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_ADLS_Gen2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_ADLS_Gen2_properties_typeProperties_url')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_AzureSQL')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('LS_AzureSQL_properties_typeProperties_server')]",
+					"database": "[parameters('LS_AzureSQL_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SystemAssignedManagedIdentity"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LS_AzureSqlDB_Target')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -352,6 +776,18 @@
 						"type": "SecureString",
 						"value": "[parameters('LS_LandingZone_SQL_DB_accountKey')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/azureblobstgaccount_credential')]",
+			"type": "Microsoft.DataFactory/factories/credentials",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "ManagedIdentity",
+				"typeProperties": {
+					"resourceId": "/subscriptions/0b0c3152-9018-459b-bcf6-debbd871ad2e/resourceGroups/azure-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/user_managed_identity"
 				}
 			},
 			"dependsOn": []

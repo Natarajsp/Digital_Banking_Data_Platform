@@ -11,6 +11,15 @@
 		"LS_LandingZone_SQL_DB_accountKey": {
 			"value": ""
 		},
+		"LS_ADLS_Gen2_properties_typeProperties_url": {
+			"value": "https://azureblobstgaccount.dfs.core.windows.net/"
+		},
+		"LS_AzureSQL_properties_typeProperties_server": {
+			"value": "mssqlazureserver.database.windows.net"
+		},
+		"LS_AzureSQL_properties_typeProperties_database": {
+			"value": "azuredatabase"
+		},
 		"LS_AzureSqlDB_Target_properties_typeProperties_server": {
 			"value": "mssqlazureserver.database.windows.net"
 		},

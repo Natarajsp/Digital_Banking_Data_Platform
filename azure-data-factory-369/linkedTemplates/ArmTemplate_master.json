@@ -15,6 +15,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_LandingZone_SQL_DB'"
 		},
+		"LS_ADLS_Gen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azureblobstgaccount.dfs.core.windows.net/"
+		},
+		"LS_AzureSQL_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "mssqlazureserver.database.windows.net"
+		},
+		"LS_AzureSQL_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "azuredatabase"
+		},
 		"LS_AzureSqlDB_Target_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "mssqlazureserver.database.windows.net"
@@ -63,6 +75,15 @@
 					},
 					"LS_LandingZone_SQL_DB_accountKey": {
 						"value": "[parameters('LS_LandingZone_SQL_DB_accountKey')]"
+					},
+					"LS_ADLS_Gen2_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLS_Gen2_properties_typeProperties_url')]"
+					},
+					"LS_AzureSQL_properties_typeProperties_server": {
+						"value": "[parameters('LS_AzureSQL_properties_typeProperties_server')]"
+					},
+					"LS_AzureSQL_properties_typeProperties_database": {
+						"value": "[parameters('LS_AzureSQL_properties_typeProperties_database')]"
 					},
 					"LS_AzureSqlDB_Target_properties_typeProperties_server": {
 						"value": "[parameters('LS_AzureSqlDB_Target_properties_typeProperties_server')]"
