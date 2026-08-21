@@ -1,0 +1,14 @@
+{
+	"name": "LS_AzureSQL",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "mssqlazureserver.database.windows.net",
+			"database": "azuredatabase",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SystemAssignedManagedIdentity"
+		}
+	}
+}
