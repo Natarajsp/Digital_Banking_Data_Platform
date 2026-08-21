@@ -14,7 +14,18 @@
 					},
 					"cases": [
 						{
-							"value": "AZURESQL_FULL"
+							"value": "AZURESQL_FULL",
+							"activities": [
+								{
+									"name": "Wait7",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 1
+									}
+								}
+							]
 						},
 						{
 							"value": "AZURESQL_INCREMENTAL",
