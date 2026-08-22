@@ -49,188 +49,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/PL_CHILD_Source_To_Landing')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "SW_Source_Type",
-						"type": "Switch",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"on": {
-								"value": "@concat(\n    toUpper(pipeline().parameters.p_source_type), \n    '_', \n    toUpper(pipeline().parameters.p_load_type)\n    )",
-								"type": "Expression"
-							},
-							"cases": [
-								{
-									"value": "AZURESQL_FULL",
-									"activities": [
-										{
-											"name": "Wait7",
-											"type": "Wait",
-											"dependsOn": [],
-											"userProperties": [],
-											"typeProperties": {
-												"waitTimeInSeconds": 1
-											}
-										}
-									]
-								},
-								{
-									"value": "AZURESQL_INCREMENTAL",
-									"activities": [
-										{
-											"name": "Wait2",
-											"type": "Wait",
-											"dependsOn": [],
-											"userProperties": [],
-											"typeProperties": {
-												"waitTimeInSeconds": 1
-											}
-										}
-									]
-								},
-								{
-									"value": "ADLS_FULL",
-									"activities": [
-										{
-											"name": "Wait3",
-											"type": "Wait",
-											"dependsOn": [],
-											"userProperties": [],
-											"typeProperties": {
-												"waitTimeInSeconds": 1
-											}
-										}
-									]
-								},
-								{
-									"value": "ADLS_INCREMENTAL",
-									"activities": [
-										{
-											"name": "Wait4",
-											"type": "Wait",
-											"dependsOn": [],
-											"userProperties": [],
-											"typeProperties": {
-												"waitTimeInSeconds": 1
-											}
-										}
-									]
-								},
-								{
-									"value": "REST_API_FULL",
-									"activities": [
-										{
-											"name": "Wait5",
-											"type": "Wait",
-											"dependsOn": [],
-											"userProperties": [],
-											"typeProperties": {
-												"waitTimeInSeconds": 1
-											}
-										}
-									]
-								},
-								{
-									"value": "REST_API_INCREMENTAL",
-									"activities": [
-										{
-											"name": "Wait6",
-											"type": "Wait",
-											"dependsOn": [],
-											"userProperties": [],
-											"typeProperties": {
-												"waitTimeInSeconds": 1
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"parameters": {
-					"p_config_id": {
-						"type": "string",
-						"defaultValue": "@item().config_id"
-					},
-					"p_source_system": {
-						"type": "string",
-						"defaultValue": "@item().source_system"
-					},
-					"p_source_type": {
-						"type": "string",
-						"defaultValue": "@item().source_type"
-					},
-					"p_source_schema": {
-						"type": "string",
-						"defaultValue": "@item().source_schema"
-					},
-					"p_source_table": {
-						"type": "string",
-						"defaultValue": "@item().source_table"
-					},
-					"p_source_path": {
-						"type": "string",
-						"defaultValue": "@item().source_path"
-					},
-					"p_target_schema": {
-						"type": "string",
-						"defaultValue": "@item().target_schema"
-					},
-					"p_target_table": {
-						"type": "string",
-						"defaultValue": "@item().target_table"
-					},
-					"p_target_path": {
-						"type": "string",
-						"defaultValue": "@item().target_path"
-					},
-					"p_watermark_column": {
-						"type": "string",
-						"defaultValue": "@item().watermark_column"
-					},
-					"p_last_watermark": {
-						"type": "string",
-						"defaultValue": "@item().last_watermark"
-					},
-					"p_load_type": {
-						"type": "string",
-						"defaultValue": "@item().load_type"
-					},
-					"p_primary_key_column": {
-						"type": "string",
-						"defaultValue": "@item().primary_key_column"
-					},
-					"p_file_format": {
-						"type": "string",
-						"defaultValue": "@item().file_format"
-					},
-					"p_created_date": {
-						"type": "string",
-						"defaultValue": "@item().created_date"
-					},
-					"p_is_active": {
-						"type": "string",
-						"defaultValue": "@item().is_active"
-					},
-					"p_modified_date": {
-						"type": "string",
-						"defaultValue": "@item().modified_date"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/LS_ADLS_Gen2')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -411,6 +229,14 @@
 					"referenceName": "LS_AzureSQL",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"table_schema": {
+						"type": "string"
+					},
+					"table_name": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
@@ -488,8 +314,14 @@
 					}
 				],
 				"typeProperties": {
-					"schema": "dbo",
-					"table": "etl_config"
+					"schema": {
+						"value": "@dataset().table_schema",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().table_name",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
@@ -505,11 +337,30 @@
 					"referenceName": "LS_ADLS_Gen2",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"target_path": {
+						"type": "string"
+					},
+					"target_file_name": {
+						"type": "String"
+					},
+					"target_file_format": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobFSLocation"
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@concat(dataset().target_file_name, '.',dataset().target_file_format)",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().target_path",
+							"type": "Expression"
+						}
 					},
 					"compressionCodec": "snappy"
 				},
@@ -710,6 +561,612 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PL_CHILD_Source_To_Landing')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "SW_Source_Type",
+						"type": "Switch",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"on": {
+								"value": "@concat(\n    toUpper(pipeline().parameters.p_source_type), \n    '_', \n    toUpper(pipeline().parameters.p_load_type)\n    )",
+								"type": "Expression"
+							},
+							"cases": [
+								{
+									"value": "AZURESQL_FULL",
+									"activities": [
+										{
+											"name": "CPY_FULL_Source_To_Landing",
+											"type": "Copy",
+											"dependsOn": [
+												{
+													"activity": "SP_Audit_Start",
+													"dependencyConditions": [
+														"Succeeded"
+													]
+												}
+											],
+											"policy": {
+												"timeout": "0.12:00:00",
+												"retry": 0,
+												"retryIntervalInSeconds": 30,
+												"secureOutput": false,
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"source": {
+													"type": "AzureSqlSource",
+													"sqlReaderQuery": {
+														"value": "@concat(\n    'SELECT * FROM ',\n    pipeline().parameters.p_source_schema,\n    '.',\n    pipeline().parameters.p_source_table\n)",
+														"type": "Expression"
+													},
+													"queryTimeout": "02:00:00",
+													"partitionOption": "None"
+												},
+												"sink": {
+													"type": "ParquetSink",
+													"storeSettings": {
+														"type": "AzureBlobFSWriteSettings"
+													},
+													"formatSettings": {
+														"type": "ParquetWriteSettings"
+													}
+												},
+												"enableStaging": false,
+												"translator": {
+													"type": "TabularTranslator",
+													"typeConversion": true,
+													"typeConversionSettings": {
+														"allowDataTruncation": true,
+														"treatBooleanAsNumber": false
+													}
+												}
+											},
+											"inputs": [
+												{
+													"referenceName": "DS_SRC_AZURESQL",
+													"type": "DatasetReference",
+													"parameters": {
+														"table_schema": {
+															"value": "@pipeline().parameters.p_source_schema",
+															"type": "Expression"
+														},
+														"table_name": {
+															"value": "@pipeline().parameters.p_source_table",
+															"type": "Expression"
+														}
+													}
+												}
+											],
+											"outputs": [
+												{
+													"referenceName": "DS_TGT_ADLS_Landing",
+													"type": "DatasetReference",
+													"parameters": {
+														"target_path": {
+															"value": "@pipeline().parameters.p_target_path",
+															"type": "Expression"
+														},
+														"target_file_name": {
+															"value": "@pipeline().parameters.p_target_table",
+															"type": "Expression"
+														},
+														"target_file_format": {
+															"value": "@pipeline().parameters.p_file_format",
+															"type": "Expression"
+														}
+													}
+												}
+											]
+										},
+										{
+											"name": "SP_Audit_Start",
+											"type": "SqlServerStoredProcedure",
+											"dependsOn": [],
+											"policy": {
+												"timeout": "0.12:00:00",
+												"retry": 0,
+												"retryIntervalInSeconds": 30,
+												"secureOutput": false,
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"storedProcedureName": "[[dbo].[SP_Audit_Start]",
+												"storedProcedureParameters": {
+													"config_id": {
+														"value": {
+															"value": "@pipeline().parameters.p_config_id",
+															"type": "Expression"
+														},
+														"type": "Int32"
+													},
+													"pipeline_run_id": {
+														"value": {
+															"value": "@pipeline().RunId",
+															"type": "Expression"
+														},
+														"type": "String"
+													},
+													"old_watermark": {
+														"value": {
+															"value": "@pipeline().parameters.p_last_watermark",
+															"type": "Expression"
+														},
+														"type": "Datetime"
+													}
+												}
+											},
+											"linkedServiceName": {
+												"referenceName": "LS_AzureSQL",
+												"type": "LinkedServiceReference"
+											}
+										},
+										{
+											"name": "SP_update_Audit_new_watermark",
+											"type": "SqlServerStoredProcedure",
+											"dependsOn": [
+												{
+													"activity": "LKP_Watermark",
+													"dependencyConditions": [
+														"Succeeded"
+													]
+												}
+											],
+											"policy": {
+												"timeout": "0.12:00:00",
+												"retry": 0,
+												"retryIntervalInSeconds": 30,
+												"secureOutput": false,
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"storedProcedureName": "[[dbo].[SP_update_Audit_new_watermark]",
+												"storedProcedureParameters": {
+													"config_id": {
+														"value": {
+															"value": "@pipeline().parameters.p_config_id",
+															"type": "Expression"
+														},
+														"type": "Int32"
+													},
+													"last_watermark": {
+														"value": {
+															"value": "@activity('LKP_Watermark').output.firstRow.new_watermark",
+															"type": "Expression"
+														},
+														"type": "Datetime"
+													}
+												}
+											},
+											"linkedServiceName": {
+												"referenceName": "LS_AzureSQL",
+												"type": "LinkedServiceReference"
+											}
+										},
+										{
+											"name": "SP_etl_audit_complete",
+											"type": "SqlServerStoredProcedure",
+											"dependsOn": [
+												{
+													"activity": "SP_update_Audit_new_watermark",
+													"dependencyConditions": [
+														"Succeeded"
+													]
+												}
+											],
+											"policy": {
+												"timeout": "0.12:00:00",
+												"retry": 0,
+												"retryIntervalInSeconds": 30,
+												"secureOutput": false,
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"storedProcedureName": "[[dbo].[SP_etl_audit_complete]",
+												"storedProcedureParameters": {
+													"config_id": {
+														"value": {
+															"value": "@pipeline().parameters.p_config_id",
+															"type": "Expression"
+														},
+														"type": "Int32"
+													},
+													"pipeline_run_id": {
+														"value": {
+															"value": "@pipeline().RunId",
+															"type": "Expression"
+														},
+														"type": "String"
+													},
+													"records_read": {
+														"value": {
+															"value": "@activity('CPY_FULL_Source_To_Landing').output.rowsRead",
+															"type": "Expression"
+														},
+														"type": "Int64"
+													},
+													"records_written": {
+														"value": {
+															"value": "@activity('CPY_FULL_Source_To_Landing').output.rowsCopied",
+															"type": "Expression"
+														},
+														"type": "Int64"
+													},
+													"new_watermark": {
+														"value": {
+															"value": "@activity('LKP_Watermark').output.firstRow.new_watermark",
+															"type": "Expression"
+														},
+														"type": "Datetime"
+													},
+													"status": {
+														"value": "SUCCESS",
+														"type": "String"
+													},
+													"error_message": {
+														"value": {
+															"value": "@activity('CPY_FULL_Source_To_Landing').error.message",
+															"type": "Expression"
+														},
+														"type": "String"
+													}
+												}
+											},
+											"linkedServiceName": {
+												"referenceName": "LS_AzureSQL",
+												"type": "LinkedServiceReference"
+											}
+										},
+										{
+											"name": "LKP_Watermark",
+											"type": "Lookup",
+											"dependsOn": [
+												{
+													"activity": "CPY_FULL_Source_To_Landing",
+													"dependencyConditions": [
+														"Succeeded"
+													]
+												}
+											],
+											"policy": {
+												"timeout": "0.12:00:00",
+												"retry": 0,
+												"retryIntervalInSeconds": 30,
+												"secureOutput": false,
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"source": {
+													"type": "AzureSqlSource",
+													"sqlReaderQuery": {
+														"value": "@concat(\n    'SELECT MAX(', \n    pipeline().parameters.p_watermark_column, \n    ') AS new_watermark FROM ',\n    pipeline().parameters.p_source_schema, '.', \n    pipeline().parameters.p_source_table\n)",
+														"type": "Expression"
+													},
+													"queryTimeout": "02:00:00",
+													"partitionOption": "None"
+												},
+												"dataset": {
+													"referenceName": "DS_SRC_AZURESQL",
+													"type": "DatasetReference",
+													"parameters": {
+														"table_schema": {
+															"value": "@pipeline().parameters.p_source_schema",
+															"type": "Expression"
+														},
+														"table_name": {
+															"value": "@pipeline().parameters.p_source_table",
+															"type": "Expression"
+														}
+													}
+												},
+												"firstRowOnly": true
+											}
+										},
+										{
+											"name": "SP_etl_audit_complete_FAILED",
+											"type": "SqlServerStoredProcedure",
+											"dependsOn": [
+												{
+													"activity": "CPY_FULL_Source_To_Landing",
+													"dependencyConditions": [
+														"Failed"
+													]
+												}
+											],
+											"policy": {
+												"timeout": "0.12:00:00",
+												"retry": 0,
+												"retryIntervalInSeconds": 30,
+												"secureOutput": false,
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"storedProcedureName": "[[dbo].[SP_etl_audit_complete]",
+												"storedProcedureParameters": {
+													"config_id": {
+														"value": {
+															"value": "@pipeline().parameters.p_config_id",
+															"type": "Expression"
+														},
+														"type": "Int32"
+													},
+													"pipeline_run_id": {
+														"value": {
+															"value": "@pipeline().RunId",
+															"type": "Expression"
+														},
+														"type": "String"
+													},
+													"records_read": {
+														"value": {
+															"value": "@activity('CPY_FULL_Source_To_Landing').output.rowsRead",
+															"type": "Expression"
+														},
+														"type": "Int64"
+													},
+													"records_written": {
+														"value": {
+															"value": "@activity('CPY_FULL_Source_To_Landing').output.rowsCopied",
+															"type": "Expression"
+														},
+														"type": "Int64"
+													},
+													"status": {
+														"value": "FAILED",
+														"type": "String"
+													},
+													"error_message": {
+														"value": {
+															"value": "@activity('CPY_FULL_Source_To_Landing').error.message",
+															"type": "Expression"
+														},
+														"type": "String"
+													}
+												}
+											},
+											"linkedServiceName": {
+												"referenceName": "LS_AzureSQL",
+												"type": "LinkedServiceReference"
+											}
+										}
+									]
+								},
+								{
+									"value": "AZURESQL_INCREMENTAL",
+									"activities": [
+										{
+											"name": "CPY_INCREMENTAL_Source_To_Landing",
+											"type": "Copy",
+											"dependsOn": [],
+											"policy": {
+												"timeout": "0.12:00:00",
+												"retry": 0,
+												"retryIntervalInSeconds": 30,
+												"secureOutput": false,
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"source": {
+													"type": "AzureSqlSource",
+													"sqlReaderQuery": {
+														"value": "@concat(\n    'SELECT * FROM ', \n    pipeline().parameters.p_source_schema, '.', \n    pipeline().parameters.p_source_table, \n    ' WHERE ', \n    pipeline().parameters.p_watermark_column, ' > ''',\n    pipeline().parameters.p_last_watermark, ''''\n    )",
+														"type": "Expression"
+													},
+													"queryTimeout": "02:00:00",
+													"partitionOption": "None"
+												},
+												"sink": {
+													"type": "ParquetSink",
+													"storeSettings": {
+														"type": "AzureBlobFSWriteSettings"
+													},
+													"formatSettings": {
+														"type": "ParquetWriteSettings"
+													}
+												},
+												"enableStaging": false,
+												"translator": {
+													"type": "TabularTranslator",
+													"typeConversion": true,
+													"typeConversionSettings": {
+														"allowDataTruncation": true,
+														"treatBooleanAsNumber": false
+													}
+												}
+											},
+											"inputs": [
+												{
+													"referenceName": "DS_SRC_AZURESQL",
+													"type": "DatasetReference",
+													"parameters": {
+														"table_schema": {
+															"value": "@pipeline().parameters.p_source_schema",
+															"type": "Expression"
+														},
+														"table_name": {
+															"value": "@pipeline().parameters.p_source_table",
+															"type": "Expression"
+														}
+													}
+												}
+											],
+											"outputs": [
+												{
+													"referenceName": "DS_TGT_ADLS_Landing",
+													"type": "DatasetReference",
+													"parameters": {
+														"target_path": {
+															"value": "@pipeline().parameters.p_target_path",
+															"type": "Expression"
+														},
+														"target_file_name": {
+															"value": "@pipeline().parameters.p_target_table",
+															"type": "Expression"
+														},
+														"target_file_format": {
+															"value": "@pipeline().parameters.p_file_format",
+															"type": "Expression"
+														}
+													}
+												}
+											]
+										}
+									]
+								},
+								{
+									"value": "ADLS_FULL",
+									"activities": [
+										{
+											"name": "Wait3",
+											"type": "Wait",
+											"dependsOn": [],
+											"userProperties": [],
+											"typeProperties": {
+												"waitTimeInSeconds": 1
+											}
+										}
+									]
+								},
+								{
+									"value": "ADLS_INCREMENTAL",
+									"activities": [
+										{
+											"name": "Wait4",
+											"type": "Wait",
+											"dependsOn": [],
+											"userProperties": [],
+											"typeProperties": {
+												"waitTimeInSeconds": 1
+											}
+										}
+									]
+								},
+								{
+									"value": "REST_API_FULL",
+									"activities": [
+										{
+											"name": "Wait5",
+											"type": "Wait",
+											"dependsOn": [],
+											"userProperties": [],
+											"typeProperties": {
+												"waitTimeInSeconds": 1
+											}
+										}
+									]
+								},
+								{
+									"value": "REST_API_INCREMENTAL",
+									"activities": [
+										{
+											"name": "Wait6",
+											"type": "Wait",
+											"dependsOn": [],
+											"userProperties": [],
+											"typeProperties": {
+												"waitTimeInSeconds": 1
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"p_config_id": {
+						"type": "string",
+						"defaultValue": "@item().config_id"
+					},
+					"p_source_system": {
+						"type": "string",
+						"defaultValue": "@item().source_system"
+					},
+					"p_source_type": {
+						"type": "string",
+						"defaultValue": "@item().source_type"
+					},
+					"p_source_schema": {
+						"type": "string",
+						"defaultValue": "@item().source_schema"
+					},
+					"p_source_table": {
+						"type": "string",
+						"defaultValue": "@item().source_table"
+					},
+					"p_source_path": {
+						"type": "string",
+						"defaultValue": "@item().source_path"
+					},
+					"p_target_schema": {
+						"type": "string",
+						"defaultValue": "@item().source_schema"
+					},
+					"p_target_table": {
+						"type": "string",
+						"defaultValue": "@item().target_table"
+					},
+					"p_target_path": {
+						"type": "string",
+						"defaultValue": "@item().target_path"
+					},
+					"p_watermark_column": {
+						"type": "string",
+						"defaultValue": "@item().watermark_column"
+					},
+					"p_last_watermark": {
+						"type": "string",
+						"defaultValue": "@item().last_watermark"
+					},
+					"p_load_type": {
+						"type": "string",
+						"defaultValue": "@item().load_type"
+					},
+					"p_primary_key_column": {
+						"type": "string",
+						"defaultValue": "@item().primary_key_column"
+					},
+					"p_file_format": {
+						"type": "string",
+						"defaultValue": "@item().file_format"
+					},
+					"p_created_date": {
+						"type": "string",
+						"defaultValue": "@item().created_date"
+					},
+					"p_is_active": {
+						"type": "string",
+						"defaultValue": "@item().is_active"
+					},
+					"p_modified_date": {
+						"type": "string",
+						"defaultValue": "@item().modified_date"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SRC_AZURESQL')]",
+				"[concat(variables('factoryId'), '/datasets/DS_TGT_ADLS_Landing')]",
+				"[concat(variables('factoryId'), '/linkedServices/LS_AzureSQL')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PL_MASTER_Landing_Ingestion')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -730,14 +1187,26 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT * \nFROM [dbo].[etl_config]\nWHERE is_active = 1;",
+								"sqlReaderQuery": {
+									"value": "@concat(\n    'SELECT * FROM ',\n    pipeline().parameters.table_schema, \n    '.', \n    pipeline().parameters.table_name, \n    ' WHERE is_active = 1;'\n)",
+									"type": "Expression"
+								},
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
 							"dataset": {
 								"referenceName": "DS_SRC_AZURESQL",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"table_schema": {
+										"value": "@pipeline().parameters.table_schema",
+										"type": "Expression"
+									},
+									"table_name": {
+										"value": "@pipeline().parameters.table_name",
+										"type": "Expression"
+									}
+								}
 							},
 							"firstRowOnly": false
 						}
@@ -784,6 +1253,14 @@
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"table_schema": {
+						"type": "string"
+					},
+					"table_name": {
+						"type": "string"
+					}
 				},
 				"annotations": []
 			},
