@@ -5,6 +5,14 @@
 			"referenceName": "LS_AzureSQL",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"table_schema": {
+				"type": "string"
+			},
+			"table_name": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
@@ -82,8 +90,14 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "dbo",
-			"table": "etl_config"
+			"schema": {
+				"value": "@dataset().table_schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table_name",
+				"type": "Expression"
+			}
 		}
 	}
 }

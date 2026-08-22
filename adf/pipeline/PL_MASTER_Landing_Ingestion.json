@@ -17,13 +17,26 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT * \nFROM [dbo].[etl_config]\nWHERE is_active = 1;",
+						"sqlReaderQuery": {
+							"value": "@concat(\n    'SELECT * FROM ',\n    pipeline().parameters.table_schema, \n    '.', \n    pipeline().parameters.table_name, \n    ' WHERE is_active = 1;'\n)",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
 						"referenceName": "DS_SRC_AZURESQL",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"table_schema": {
+								"value": "@pipeline().parameters.table_schema",
+								"type": "Expression"
+							},
+							"table_name": {
+								"value": "@pipeline().parameters.table_name",
+								"type": "Expression"
+							}
+						}
 					},
 					"firstRowOnly": false
 				}
@@ -67,6 +80,14 @@
 				}
 			}
 		],
+		"parameters": {
+			"table_schema": {
+				"type": "string"
+			},
+			"table_name": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
