@@ -21,7 +21,7 @@
 									"type": "Copy",
 									"dependsOn": [
 										{
-											"activity": "SP_Audit_Start",
+											"activity": "SP_Audit_Start_FULL",
 											"dependencyConditions": [
 												"Succeeded"
 											]
@@ -38,7 +38,10 @@
 									"typeProperties": {
 										"source": {
 											"type": "AzureSqlSource",
-											"sqlReaderQuery": "@concat(\n    'SELECT * FROM ',\n    pipeline().parameters.p_source_schema,\n    '.',\n    pipeline().parameters.p_source_table\n)",
+											"sqlReaderQuery": {
+												"value": "@concat(\n    'SELECT * FROM ',\n    pipeline().parameters.p_source_schema,\n    '.',\n    pipeline().parameters.p_source_table\n)",
+												"type": "Expression"
+											},
 											"queryTimeout": "02:00:00",
 											"partitionOption": "None"
 										},
@@ -99,7 +102,7 @@
 									]
 								},
 								{
-									"name": "SP_Audit_Start",
+									"name": "SP_Audit_Start_FULL",
 									"type": "SqlServerStoredProcedure",
 									"dependsOn": [],
 									"policy": {
@@ -144,6 +147,8 @@
 								{
 									"name": "SP_update_Audit_new_watermark",
 									"type": "SqlServerStoredProcedure",
+									"state": "Inactive",
+									"onInactiveMarkAs": "Succeeded",
 									"dependsOn": [
 										{
 											"activity": "LKP_Watermark",
@@ -171,10 +176,6 @@
 												"type": "Int32"
 											},
 											"last_watermark": {
-												"value": {
-													"value": "@activity('LKP_Watermark').output.firstRow.new_watermark",
-													"type": "Expression"
-												},
 												"type": "Datetime"
 											}
 										}
@@ -185,11 +186,11 @@
 									}
 								},
 								{
-									"name": "SP_etl_audit_complete",
+									"name": "SP_etl_audit_complete_FULL",
 									"type": "SqlServerStoredProcedure",
 									"dependsOn": [
 										{
-											"activity": "SP_update_Audit_new_watermark",
+											"activity": "CPY_FULL_Source_To_Landing",
 											"dependencyConditions": [
 												"Succeeded"
 											]
@@ -234,13 +235,6 @@
 												},
 												"type": "Int64"
 											},
-											"new_watermark": {
-												"value": {
-													"value": "@activity('LKP_Watermark').output.firstRow.new_watermark",
-													"type": "Expression"
-												},
-												"type": "Datetime"
-											},
 											"status": {
 												"value": "SUCCESS",
 												"type": "String"
@@ -262,14 +256,9 @@
 								{
 									"name": "LKP_Watermark",
 									"type": "Lookup",
-									"dependsOn": [
-										{
-											"activity": "CPY_FULL_Source_To_Landing",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
+									"state": "Inactive",
+									"onInactiveMarkAs": "Succeeded",
+									"dependsOn": [],
 									"policy": {
 										"timeout": "0.12:00:00",
 										"retry": 0,
@@ -306,7 +295,7 @@
 									}
 								},
 								{
-									"name": "SP_etl_audit_complete_FAILED",
+									"name": "SP_etl_audit_complete_FAILED_FULL",
 									"type": "SqlServerStoredProcedure",
 									"dependsOn": [
 										{
@@ -381,7 +370,14 @@
 								{
 									"name": "CPY_INCREMENTAL_Source_To_Landing",
 									"type": "Copy",
-									"dependsOn": [],
+									"dependsOn": [
+										{
+											"activity": "SP_Audit_Start_INCREMENTAL",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
 									"policy": {
 										"timeout": "0.12:00:00",
 										"retry": 0,
@@ -393,7 +389,10 @@
 									"typeProperties": {
 										"source": {
 											"type": "AzureSqlSource",
-											"sqlReaderQuery": "@concat(\n    'SELECT * FROM ', \n    pipeline().parameters.p_source_schema, '.', \n    pipeline().parameters.p_source_table, \n    ' WHERE ', \n    pipeline().parameters.p_watermark_column, ' > ''',\n    pipeline().parameters.p_last_watermark, ''''\n    )",
+											"sqlReaderQuery": {
+												"value": "@concat(\n    'SELECT * FROM ', \n    pipeline().parameters.p_source_schema, '.', \n    pipeline().parameters.p_source_table, \n    ' WHERE ', \n    pipeline().parameters.p_watermark_column, ' > ''',\n    pipeline().parameters.p_last_watermark, ''''\n    )",
+												"type": "Expression"
+											},
 											"queryTimeout": "02:00:00",
 											"partitionOption": "None"
 										},
@@ -452,6 +451,281 @@
 											}
 										}
 									]
+								},
+								{
+									"name": "SP_Audit_Start_INCREMENTAL",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[dbo].[SP_Audit_Start]",
+										"storedProcedureParameters": {
+											"config_id": {
+												"value": {
+													"value": "@pipeline().parameters.p_config_id",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											},
+											"pipeline_run_id": {
+												"value": {
+													"value": "@pipeline().RunId",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"old_watermark": {
+												"value": {
+													"value": "@pipeline().parameters.p_last_watermark",
+													"type": "Expression"
+												},
+												"type": "Datetime"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "LS_AzureSQL",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "LKP_Watermark_INCREMENTAL",
+									"type": "Lookup",
+									"dependsOn": [
+										{
+											"activity": "CPY_INCREMENTAL_Source_To_Landing",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "@concat(\n    'SELECT MAX(', \n    pipeline().parameters.p_watermark_column, \n    ') AS new_watermark FROM ',\n    pipeline().parameters.p_source_schema, '.', \n    pipeline().parameters.p_source_table\n)",
+												"type": "Expression"
+											},
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"dataset": {
+											"referenceName": "DS_SRC_AZURESQL",
+											"type": "DatasetReference",
+											"parameters": {
+												"table_schema": {
+													"value": "@pipeline().parameters.p_source_schema",
+													"type": "Expression"
+												},
+												"table_name": {
+													"value": "@pipeline().parameters.p_source_table",
+													"type": "Expression"
+												}
+											}
+										},
+										"firstRowOnly": true
+									}
+								},
+								{
+									"name": "SP_update_Audit_new_watermark_INCREMENTAL",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "LKP_Watermark_INCREMENTAL",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[dbo].[SP_update_Audit_new_watermark]",
+										"storedProcedureParameters": {
+											"config_id": {
+												"value": {
+													"value": "@pipeline().parameters.p_config_id",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											},
+											"last_watermark": {
+												"value": {
+													"value": "@activity('LKP_Watermark_INCREMENTAL').output.firstRow.new_watermark",
+													"type": "Expression"
+												},
+												"type": "Datetime"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "LS_AzureSQL",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "SP_etl_audit_complete_INCREMENTAL",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "SP_update_Audit_new_watermark_INCREMENTAL",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[dbo].[SP_etl_audit_complete]",
+										"storedProcedureParameters": {
+											"config_id": {
+												"value": {
+													"value": "@pipeline().parameters.p_config_id",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											},
+											"pipeline_run_id": {
+												"value": {
+													"value": "@pipeline().RunId",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"records_read": {
+												"value": {
+													"value": "@activity('CPY_INCREMENTAL_Source_To_Landing').output.rowsRead",
+													"type": "Expression"
+												},
+												"type": "Int64"
+											},
+											"records_written": {
+												"value": {
+													"value": "@activity('CPY_INCREMENTAL_Source_To_Landing').output.rowsCopied",
+													"type": "Expression"
+												},
+												"type": "Int64"
+											},
+											"new_watermark": {
+												"value": {
+													"value": "@activity('LKP_Watermark_INCREMENTAL').output.firstRow.new_watermark",
+													"type": "Expression"
+												},
+												"type": "Datetime"
+											},
+											"status": {
+												"value": "SUCCESS",
+												"type": "String"
+											},
+											"error_message": {
+												"value": {
+													"value": "@activity('CPY_INCREMENTAL_Source_To_Landing').error.message",
+													"type": "Expression"
+												},
+												"type": "String"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "LS_AzureSQL",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "SP_etl_audit_complete_INCREMENTAL_FAILED",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "CPY_INCREMENTAL_Source_To_Landing",
+											"dependencyConditions": [
+												"Failed"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[dbo].[SP_etl_audit_complete]",
+										"storedProcedureParameters": {
+											"config_id": {
+												"value": {
+													"value": "@pipeline().parameters.p_config_id",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											},
+											"pipeline_run_id": {
+												"value": {
+													"value": "@pipeline().RunId",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"records_read": {
+												"value": {
+													"value": "@activity('CPY_INCREMENTAL_Source_To_Landing').output.rowsRead",
+													"type": "Expression"
+												},
+												"type": "Int64"
+											},
+											"records_written": {
+												"value": {
+													"value": "@activity('CPY_INCREMENTAL_Source_To_Landing').output.rowsCopied",
+													"type": "Expression"
+												},
+												"type": "Int64"
+											},
+											"status": {
+												"value": "FAILED",
+												"type": "String"
+											},
+											"error_message": {
+												"value": {
+													"value": "@activity('CPY_INCREMENTAL_Source_To_Landing').error.message",
+													"type": "Expression"
+												},
+												"type": "String"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "LS_AzureSQL",
+										"type": "LinkedServiceReference"
+									}
 								}
 							]
 						},
